@@ -4,3 +4,4 @@ bin/
 *.tab.hpp
 *.tab.cpp
 *.output
+*.d
