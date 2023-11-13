@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 #include "cli.h"
+#include "ast.hpp"
 
 void compile(std::ostream &w)
 {
@@ -17,8 +18,7 @@ void compile(std::ostream &w)
     w << "ret" << std::endl;
 }
 
-// TODO: uncomment the below if you're using Flex/Bison.
-// extern FILE *yyin;
+extern FILE *yyin;
 
 int main(int argc, char **argv)
 {
@@ -30,15 +30,14 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    // TODO: uncomment the below lines if you're using Flex/Bison.
     // This configures Flex to look at sourcePath instead of
     // reading from stdin.
-    // yyin = fopen(sourcePath, "r");
-    // if (yyin == NULL)
-    // {
-    //     perror("Could not open source file");
-    //     return 1;
-    // }
+    yyin = fopen(sourcePath.c_str(), "r");
+    if (yyin == NULL)
+    {
+        perror("Could not open source file");
+        return 1;
+    }
 
     // Open the output file in truncation mode (to overwrite the contents)
     std::ofstream output;
@@ -46,7 +45,18 @@ int main(int argc, char **argv)
 
     // Compile the input
     std::cout << "Compiling: " << sourcePath << std::endl;
-    compile(output);
+
+    auto root = parseAST();
+    std::cout << "AST parsing complete" << std::endl;
+
+    if (root == nullptr)
+    {
+        std::cerr << "The root of the AST was a null pointer. Likely the root was never initialised correctly during parsing." << std::endl;
+        return 2;
+    }
+
+    root->print(output);
+
     std::cout << "Compiled to: " << outputPath << std::endl;
 
     output.close();
