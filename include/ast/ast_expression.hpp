@@ -22,8 +22,7 @@ public:
     virtual void print(std::ostream &dst) const = 0;
 
     //! Evaluate the tree using the given mapping of variables to numbers
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const
+    virtual void compile(Context &ctx, std::ostream &dst) const
     {
         throw std::runtime_error("Not implemented.");
     }
