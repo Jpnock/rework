@@ -41,19 +41,19 @@ for DRIVER in compiler_tests/**/*_driver.c; do
     OUT="${LOG_FILE_BASE}"
     timeout --foreground 10s ./bin/c_compiler -S "${TO_ASSEMBLE}" -o "${OUT}.s" 2> "${LOG_FILE_BASE}.compiler.stderr.log" > "${LOG_FILE_BASE}.compiler.stdout.log"
     if [ $? -ne 0 ]; then
-        fail_testcase "Fail: see ${LOG_FILE_BASE}.compiler.stderr.log and ${LOG_FILE_BASE}.compiler.stdout.log and ${OUT}.s"
+        fail_testcase "Failed to compile testcase: see ${LOG_FILE_BASE}.compiler.stderr.log and ${LOG_FILE_BASE}.compiler.stdout.log and ${OUT}.s"
         continue
     fi
 
     timeout --foreground 10s riscv64-unknown-elf-gcc -march=rv32imfd -mabi=ilp32d -o "${OUT}.o" -c "${OUT}.s" 2> "${LOG_FILE_BASE}.assembler.stderr.log" > "${LOG_FILE_BASE}.assembler.stdout.log"
     if [ $? -ne 0 ]; then
-        fail_testcase "Fail: see ${LOG_FILE_BASE}.assembler.stderr.log and ${LOG_FILE_BASE}.assembler.stdout.log and ${OUT}.s"
+        fail_testcase "Failed to assemble: see ${LOG_FILE_BASE}.assembler.stderr.log and ${LOG_FILE_BASE}.assembler.stdout.log and ${OUT}.s"
         continue
     fi
 
     timeout --foreground 10s riscv64-unknown-elf-gcc -march=rv32imfd -mabi=ilp32d -static -o "${OUT}" "${OUT}.o" "${DRIVER}" 2> "${LOG_FILE_BASE}.linker.stderr.log" > "${LOG_FILE_BASE}.linker.stdout.log"
     if [ $? -ne 0 ]; then
-        fail_testcase "Fail: see ${LOG_FILE_BASE}.linker.stderr.log and ${LOG_FILE_BASE}.linker.stdout.log and ${OUT}.s"
+        fail_testcase "Failed to link driver: see ${LOG_FILE_BASE}.linker.stderr.log and ${LOG_FILE_BASE}.linker.stdout.log and ${OUT}.s"
         continue
     fi
 
@@ -64,7 +64,7 @@ for DRIVER in compiler_tests/**/*_driver.c; do
 
         printf '%s\n' "</testcase>" >> "${J_UNIT_OUTPUT_FILE}"
     else
-        fail_testcase "Fail: simulation did not exit with exit-code 0, see ${LOG_FILE_BASE}.simulation.log and ${OUT}.s"
+        fail_testcase "Failed to simulate: simulation did not exit with exit-code 0, see ${LOG_FILE_BASE}.simulation.log and ${OUT}.s"
     fi
 done
 
