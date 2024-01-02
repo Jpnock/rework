@@ -60,14 +60,14 @@ int check_type();
     return check_type();
 }
 
-0[xX]{H}+{IS}?		{ count(); return(CONSTANT); }
-0{D}+{IS}?		    { count(); return(CONSTANT); }
-{D}+{IS}?		    { count(); return(CONSTANT); }
+0[xX]{H}+{IS}?		{ count(); yylval.str = new std::string(yytext); return(CONSTANT); }
+0{D}+{IS}?		    { count(); yylval.str = new std::string(yytext); return(CONSTANT); }
+{D}+{IS}?		    { count(); yylval.str = new std::string(yytext); return(CONSTANT); }
 L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
 
-{D}+{E}{FS}?		    { count(); return(CONSTANT); }
-{D}*"."{D}+({E})?{FS}?	{ count(); return(CONSTANT); }
-{D}+"."{D}*({E})?{FS}?	{ count(); return(CONSTANT); }
+{D}+{E}{FS}?		    { count(); yylval.str = new std::string(yytext); return(CONSTANT); }
+{D}*"."{D}+({E})?{FS}?	{ count(); yylval.str = new std::string(yytext); return(CONSTANT); }
+{D}+"."{D}*({E})?{FS}?	{ count(); yylval.str = new std::string(yytext); return(CONSTANT); }
 
 L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL); }
 

@@ -5,19 +5,6 @@
 #include "cli.h"
 #include "ast.hpp"
 
-void compile(std::ostream &w)
-{
-    w << ".text" << std::endl;
-    w << ".globl f" << std::endl;
-    w << std::endl;
-
-    w << "f:" << std::endl;
-    w << "addi  t0, zero, 0" << std::endl;
-    w << "addi  t0, t0,   5" << std::endl;
-    w << "add   a0, zero, t0" << std::endl;
-    w << "ret" << std::endl;
-}
-
 extern FILE *yyin;
 
 int main(int argc, char **argv)
@@ -58,14 +45,14 @@ int main(int argc, char **argv)
     }
 
     root->print(describeOutput);
-    compiledOutput.close();
+    describeOutput.close();
     std::cout << "Printed to: " << printedOutputPath << std::endl;
 
     Context ctx;
     root->compile(ctx, compiledOutput);
-    describeOutput.close();
-
+    compiledOutput.close();
     std::cout << "Compiled to: " << compiledOutputPath << std::endl;
 
+    delete root;
     return 0;
 }

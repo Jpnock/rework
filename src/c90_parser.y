@@ -13,9 +13,10 @@
 }
 
 %union{
-	const Expression *expr;
-	double number;
+	Expression *expr;
+	long double number;
 	std::string *str;
+	ExpressionList *exprs;
 }
 
 %token IDENTIFIER CONSTANT STRING_LITERAL SIZEOF
@@ -30,19 +31,24 @@
 
 %token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
 
-%type <expr> translation_unit
-%type <expr> external_declaration function_definition declaration
-%type <str> primary_expression declarator direct_declarator postfix_expression
-%type <str> IDENTIFIER
+%type <expr> translation_unit expression statement compound_statement
+%type <exprs> statement_list
+%type <expr> external_declaration function_definition declaration jump_statement
+%type <expr> primary_expression declarator direct_declarator postfix_expression
+%type <str> IDENTIFIER CONSTANT
 
 %start translation_unit
 %%
 
 primary_expression
 	: IDENTIFIER {
-		$$ = new std::string(*$1);
+		$$ = new Identifier(std::string(*$1));
+		delete $1;
 	}
-	| CONSTANT
+	| CONSTANT {
+		std::cout << "Trying to parse constant: " << *$1 << std::endl;
+		$$ = new Number(std::stold(*$1));
+	}
 	| STRING_LITERAL
 	| '(' expression ')'
 	;
@@ -289,7 +295,10 @@ declarator
 	;
 
 direct_declarator
-	: IDENTIFIER { $$ = $1; }
+	: IDENTIFIER {
+		$$ = new Identifier(std::string(*$1));
+		delete $1;
+	}
 	| '(' declarator ')' { $$ = $2 ;}
 	| direct_declarator '[' constant_expression ']' { $$ = $1; }
 	| direct_declarator '[' ']' { $$ = $1; }
@@ -368,11 +377,11 @@ initializer_list
 
 statement
 	: labeled_statement
-	| compound_statement
+	| compound_statement { $$ = $1; }
 	| expression_statement
 	| selection_statement
 	| iteration_statement
-	| jump_statement
+	| jump_statement { $$ = $1; }
 	;
 
 labeled_statement
@@ -383,7 +392,7 @@ labeled_statement
 
 compound_statement
 	: '{' '}'
-	| '{' statement_list '}'
+	| '{' statement_list '}' { $$ = $2; }
 	| '{' declaration_list '}'
 	| '{' declaration_list statement_list '}'
 	;
@@ -394,8 +403,8 @@ declaration_list
 	;
 
 statement_list
-	: statement
-	| statement_list statement
+	: statement { $$ = new ExpressionList($1); }
+	| statement_list statement { $1->push_back($2); $$=$1; }
 	;
 
 expression_statement
@@ -420,8 +429,12 @@ jump_statement
 	: GOTO IDENTIFIER ';'
 	| CONTINUE ';'
 	| BREAK ';'
-	| RETURN ';'
-	| RETURN expression ';'
+	| RETURN ';' {
+		$$ = new Return();
+	}
+	| RETURN expression ';' {
+		$$ = new Return($2);
+	}
 	;
 
 translation_unit
@@ -450,9 +463,14 @@ function_definition
 	}
 	| declaration_specifiers declarator compound_statement {
 		// Normal functions
-		std::cout << "Got normal function: " << *$2 << std::endl;
+		std::cout << "Got normal function: ";
+		$2->print(std::cout);
+		std::cout << std::endl;
+
 		std::vector<ExpressionPtr> args;
-		$$ = new Function(*$2, args);
+		auto funcName = dynamic_cast<const Identifier*>($2)->getId();
+		delete $2;
+		$$ = new Function(funcName, args, $3);
 	}
 	| declarator declaration_list compound_statement {
 		std::cerr << "Old K&R style function was parsed (2). This is not part of the tested specification." << std::endl;

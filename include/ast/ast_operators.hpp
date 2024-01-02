@@ -46,6 +46,8 @@ public:
         right->print(dst);
         dst << " )";
     }
+
+    // TODO: throw on compile if not overridden
 };
 
 class AddOperator
@@ -69,6 +71,7 @@ public:
         // double vl = getLeft()->evaluate(bindings);
         // double vr = getRight()->evaluate(bindings);
         // return vl + vr;
+        std::cerr << "AddOperator: evaluate is not implemented." << std::endl;
     }
 };
 
@@ -90,7 +93,7 @@ public:
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         // TODO-D : Implement this, based on AddOperator::evaluate
-        throw std::runtime_error("MulOperator::evaluate is not implemented.");
+        std::cerr << "SubOperator: evaluate is not implemented." << std::endl;
     }
 };
 
@@ -111,7 +114,7 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        throw std::runtime_error("MulOperator::evaluate is not implemented.");
+        std::cerr << "MulOperator: evaluate is not implemented." << std::endl;
     }
 };
 
@@ -132,7 +135,7 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        throw std::runtime_error("DivOperator::evaluate is not implemented.");
+        std::cerr << "DivOperator: evaluate is not implemented." << std::endl;
     }
 };
 
@@ -153,7 +156,7 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        throw std::runtime_error("ExpOperator::evaluate is not implemented.");
+        std::cerr << "ExpOperator: evaluate is not implemented." << std::endl;
     }
 };
 
