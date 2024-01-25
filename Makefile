@@ -1,4 +1,4 @@
-CPPFLAGS += -std=c++20 -W -Wall -g -I include
+CPPFLAGS += -std=c++20 -W -fsanitize=address -static-libasan -O0 -Wall -Wno-unused-parameter -g -I include
 
 .PHONY: default
 
