@@ -53,11 +53,9 @@ public:
         dst << "}" << std::endl;
     }
 
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const override
+    virtual void compile(std::ostream &dst) const override
     {
-        // NOTE : This should be implemented by the inheriting function nodes, e.g. LogFunction
-        throw std::runtime_error("FunctionOperator::evaluate is not implemented.");
+        throw std::runtime_error("Function: compile is not implemented.");
     }
 };
 

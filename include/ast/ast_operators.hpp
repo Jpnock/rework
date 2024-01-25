@@ -63,13 +63,9 @@ public:
     {
     }
 
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const override
+    virtual void compile(std::ostream &dst) const override
     {
-        // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
-        double vl = getLeft()->evaluate(bindings);
-        double vr = getRight()->evaluate(bindings);
-        return vl + vr;
+        throw std::runtime_error("AddOperator: compile is not implemented");
     }
 };
 
@@ -88,11 +84,9 @@ public:
     {
     }
 
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const override
+    virtual void compile(std::ostream &dst) const override
     {
-        // TODO-D : Implement this, based on AddOperator::evaluate
-        throw std::runtime_error("MulOperator::evaluate is not implemented.");
+        throw std::runtime_error("SubOperator: compile is not implemented");
     }
 };
 
@@ -111,10 +105,9 @@ public:
     {
     }
 
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const override
+    virtual void compile(std::ostream &dst) const override
     {
-        throw std::runtime_error("MulOperator::evaluate is not implemented.");
+        throw std::runtime_error("MulOperator: compile is not implemented");
     }
 };
 
@@ -133,10 +126,9 @@ public:
     {
     }
 
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const override
+    virtual void compile(std::ostream &dst) const override
     {
-        throw std::runtime_error("DivOperator::evaluate is not implemented.");
+        throw std::runtime_error("DivOperator: compile is not implemented");
     }
 };
 
@@ -155,10 +147,9 @@ public:
     {
     }
 
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const override
+    virtual void compile(std::ostream &dst) const override
     {
-        throw std::runtime_error("ExpOperator::evaluate is not implemented.");
+        throw std::runtime_error("ExpOperator: compile is not implemented");
     }
 };
 

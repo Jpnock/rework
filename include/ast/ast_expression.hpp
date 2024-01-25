@@ -18,12 +18,11 @@ public:
     {
     }
 
-    //! Tell and expression to print itself to the given stream
+    // Prints a text representation of the expression to dst.
     virtual void print(std::ostream &dst) const = 0;
 
-    //! Evaluate the tree using the given mapping of variables to numbers
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const
+    // Compiles the expression, outputting assembly to dst.
+    virtual void compile(std::ostream &dst) const
     {
         throw std::runtime_error("Not implemented.");
     }

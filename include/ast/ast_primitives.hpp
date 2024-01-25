@@ -26,12 +26,9 @@ public:
         dst << id;
     }
 
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const override
+    virtual void compile(std::ostream &dst) const override
     {
-        // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.
-        // If the binding does not exist, this will throw an error
-        return bindings.at(id);
+        throw std::runtime_error("Variable: compile is not implemented");
     }
 };
 
@@ -57,11 +54,9 @@ public:
         dst << value;
     }
 
-    virtual double evaluate(
-        const std::map<std::string, double> &bindings) const override
+    virtual void compile(std::ostream &dst) const override
     {
-        // TODO-A : Run bin/eval_expr with a numeric expression to make sure you understand how this works.
-        return value;
+        throw std::runtime_error("Number: compile is not implemented");
     }
 };
 
