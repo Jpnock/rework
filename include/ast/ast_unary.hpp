@@ -53,7 +53,7 @@ public:
         return "-";
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("NegOperator: compile is not implemented");
     }

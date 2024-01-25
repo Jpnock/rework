@@ -22,7 +22,7 @@ public:
     virtual void print(std::ostream &dst) const = 0;
 
     // Compiles the expression, outputting assembly to dst.
-    virtual void compile(std::ostream &dst) const
+    virtual void compile(Context &ctx, std::ostream &dst) const
     {
         throw std::runtime_error("Not implemented.");
     }

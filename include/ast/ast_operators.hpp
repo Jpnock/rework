@@ -63,7 +63,7 @@ public:
     {
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("AddOperator: compile is not implemented");
     }
@@ -84,7 +84,7 @@ public:
     {
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("SubOperator: compile is not implemented");
     }
@@ -105,7 +105,7 @@ public:
     {
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("MulOperator: compile is not implemented");
     }
@@ -126,7 +126,7 @@ public:
     {
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("DivOperator: compile is not implemented");
     }
@@ -147,7 +147,7 @@ public:
     {
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("ExpOperator: compile is not implemented");
     }

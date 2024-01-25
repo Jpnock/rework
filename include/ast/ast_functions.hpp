@@ -53,7 +53,7 @@ public:
         dst << "}" << std::endl;
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("Function: compile is not implemented.");
     }

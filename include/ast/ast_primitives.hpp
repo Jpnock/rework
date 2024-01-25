@@ -26,7 +26,7 @@ public:
         dst << id;
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("Variable: compile is not implemented");
     }
@@ -54,7 +54,7 @@ public:
         dst << value;
     }
 
-    virtual void compile(std::ostream &dst) const override
+    virtual void compile(Context &ctx, std::ostream &dst) const override
     {
         throw std::runtime_error("Number: compile is not implemented");
     }

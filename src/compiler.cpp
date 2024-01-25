@@ -48,10 +48,14 @@ int main(int argc, char **argv)
     prettyPrintOutput.close();
     std::cout << "Printed parsed AST to: " << prettyPrintOutputPath << std::endl;
 
+    // Create a Context. This can be used to pass around information about
+    // what's currently being compiled (e.g. function scope and variable names).
+    Context ctx;
+
     // Compile from the root of the AST and output this to the compiledOutput
     // file.
     std::cout << "Compiling parsed AST..." << std::endl;
-    root->compile(compiledOutput);
+    root->compile(ctx, compiledOutput);
     compiledOutput.close();
     std::cout << "Compiled to: " << commandLineArguments.compileOutputPath << std::endl;
 
