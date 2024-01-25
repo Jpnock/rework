@@ -4,14 +4,14 @@
 #include <string>
 #include <iostream>
 
-class Variable
+class Identifier
     : public Expression
 {
 private:
     std::string id;
 
 public:
-    Variable(const std::string &_id)
+    Identifier(const std::string &_id)
         : id(_id)
     {
     }
@@ -28,7 +28,6 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        std::cerr << "Variable: compile is not implemented" << std::endl;
     }
 };
 
@@ -36,10 +35,10 @@ class Number
     : public Expression
 {
 private:
-    double value;
+    long double value;
 
 public:
-    Number(double _value)
+    Number(long double _value)
         : value(_value)
     {
     }
@@ -56,7 +55,8 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        std::cerr << "Number: compile is not implemented" << std::endl;
+        std::cerr << "Assuming all numbers are integers" << std::endl;
+        dst << "li a0, " << int(value) << std::endl;
     }
 };
 
