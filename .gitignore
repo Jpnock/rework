@@ -1,1 +1,7 @@
 bin/
+*.yy.cpp
+*.o
+*.tab.hpp
+*.tab.cpp
+*.output
+*.d
