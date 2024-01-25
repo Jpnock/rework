@@ -19,7 +19,10 @@ public:
     }
 
     // Prints a text representation of the expression to dst.
-    virtual void print(std::ostream &dst) const = 0;
+    virtual void print(std::ostream &dst) const
+    {
+        throw std::runtime_error("print() not implemented.");
+    };
 
     // Compiles the expression, outputting assembly to dst.
     virtual void compile(Context &ctx, std::ostream &dst) const
