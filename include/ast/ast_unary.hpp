@@ -55,7 +55,7 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        throw std::runtime_error("NegOperator: compile is not implemented");
+        std::cerr << "NegOperator: compile is not implemented" << std::endl;
     }
 };
 

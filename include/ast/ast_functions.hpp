@@ -60,7 +60,7 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        throw std::runtime_error("Function: compile is not implemented.");
+        std::cerr << "Function: compile is not implemented." << std::endl;
     }
 };
 

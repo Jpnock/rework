@@ -28,7 +28,7 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        throw std::runtime_error("Variable: compile is not implemented");
+        std::cerr << "Variable: compile is not implemented" << std::endl;
     }
 };
 
@@ -56,7 +56,7 @@ public:
 
     virtual void compile(Context &ctx, std::ostream &dst) const override
     {
-        throw std::runtime_error("Number: compile is not implemented");
+        std::cerr << "Number: compile is not implemented" << std::endl;
     }
 };
 
