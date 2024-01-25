@@ -29,7 +29,7 @@ bin/c_compiler : $(OBJECTS)
 %.o: %.cpp Makefile
 	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
 
-with_coverage : CPPFLAGS += --coverage
+with_coverage : CXXFLAGS += --coverage
 with_coverage : bin/c_compiler
 
 coverage : coverage/index.html
