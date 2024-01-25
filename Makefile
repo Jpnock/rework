@@ -25,3 +25,9 @@ clean :
 	@rm -rf coverage
 	@find . -name "*.o" -delete
 	@rm -rf bin/*
+	@rm -f src/c90_parser.output
+	@rm -f src/c90_parser.tab.hpp
+	@rm -f src/c90_parser.tab.cpp
+	@rm -f src/c90_parser.tab.o
+	@rm -f src/c90_lexer.yy.cpp
+	@rm -f src/c90_lexer.yy.o
