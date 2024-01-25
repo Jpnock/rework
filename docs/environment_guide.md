@@ -12,9 +12,14 @@ Many students develop their compiler in VS Code, as this has good support for co
 1) Install [Docker Desktop](https://www.docker.com/products/docker-desktop/). If you are on Apple M1/M2, make sure to choose the Apple Silicon download.
 2) Open VS Code and install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
 3) Open the folder containing this file, in VS Code
-4) Open the Command Palette in VS Code. You can do this by the shortcut `Ctrl + Shift + P` on Windows or `Cmd + Shift + P` on Mac. Alternatively, you can access this from `View -> Command Palette`.
+4) Open the Command Palette in VS Code:
+    - Windows: `Ctrl + Shift + P`
+    - Mac OS: `Cmd + Shift + P`
+    - Alternatively, you can access this from the menu bar `View -> Command Palette`.
 5) Enter `>Dev Containers: Reopen in Container` into the Command Palette
-6) After a delay -- depending on how fast your Internet connection can download ~1GB -- you will now be in the container environment. For those interested, VS Code reads the container configuration from the [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json) file.
+6) After a delay you will now be in the container environment.
+    - The delay will vary based on how fast you can download around 1GB over your Internet connection.
+    - For those interested, VS Code reads the container configuration from the [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json) file.
 7) Test that your tools are correctly setup by running `./toolchain_test.sh` in the VS Code terminal, accessible via `Terminal -> New Terminal`. Your output should look as follows:
 
     ```console
@@ -40,8 +45,15 @@ Many students develop their compiler in VS Code, as this has good support for co
 
 1) Install [Docker](https://www.docker.com/products/docker-desktop/). If you are on Apple M1/M2, make sure to choose the Apple Silicon download.
 2) Open a terminal (Powershell on Windows; Terminal on Mac) to the folder containing this file
-3) Inside that terminal, run `docker build -t compilers_image .`
-4) Once that completes, run `docker run --rm -it -v "${PWD}:/code" -w "/code" --name "compilers_env" compilers_image`
+3) Inside that terminal, run `docker build -t compilers_image .` to build the Docker container image
+4) Once that completes, run the following command to start the Docker container
+
+    ```
+    docker run --rm -it -v "${PWD}:/code" -w "/code" --name "compilers_env" compilers_image
+    ```
+
+6) You should now be inside the LangProc tools container, where you can run `./toolchain_test.sh` inside the `/code` folder to check that your tools are working correctly. Note that the folder containing this file, as well as any subdirectories, are mounted inside this container under the path `/code`. The output of running the command should look as follows:
+
 5) You should now be inside the LangProc tools container, where you can run `./toolchain_test.sh` inside the `/code` folder to check that your tools are working correctly. Note that the folder containing this file, as well as any subdirectories, are mounted inside this container under the path `/code`. The output of running the command should look as follows:
 
     ```console
