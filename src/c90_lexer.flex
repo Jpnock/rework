@@ -1,4 +1,4 @@
-// Source: https://www.lysator.liu.se/c/ANSI-C-grammar-l.html
+/* Source: https://www.lysator.liu.se/c/ANSI-C-grammar-l.html */
 
 D			[0-9]
 L			[a-zA-Z_]
