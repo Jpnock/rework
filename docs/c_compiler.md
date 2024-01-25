@@ -49,6 +49,8 @@ The compilation function is invoked using the flag `-S`, with the source file an
 
 You can assume that the command-line arguments will always be in this order, and that there will be no spaces in source or destination paths.
 
+NOTE: the provided starting point in this repository already functions as specified above.
+
 Input
 -----
 
@@ -180,6 +182,6 @@ Useful links
 
 * [RISC-V Assembler Reference](https://michaeljclark.github.io/asm.html) - Very useful resource containing information about structuring your output assembly files and most importantly the assembler directives - if you don't know the meaning behind `.data`, `.text`, or `.word` then definitely check this out as well as experiment with Godbolt to see how it actually emits them.
 
-Getting started 
+Getting started
 ---------------
-[How to get started? (previous students' perspetives)](./starting_guide.md)
+[How to get started? (previous students' perspectives)](./starting_guide.md)
