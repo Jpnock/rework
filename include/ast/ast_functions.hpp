@@ -15,17 +15,22 @@ private:
     ExpressionPtr body;
 
 public:
-    Function(std::string _name, std::vector<ExpressionPtr> _args)
-        : name(_name), args(_args), body(nullptr)
+    Function(std::string _name, std::vector<ExpressionPtr> _args, Expression *_body)
+        : name(_name), args(_args), body(_body)
     {
     }
 
     virtual ~Function()
     {
-        // delete args;
+        for (auto expr : args)
+        {
+            delete expr;
+        }
+        delete body;
     }
 
-    std::string getName() const
+    std::string
+    getName() const
     {
         return name;
     }
@@ -37,12 +42,12 @@ public:
 
     virtual void print(std::ostream &dst) const override
     {
-        dst << name << "( ";
+        dst << name << "(";
         for (auto &&arg : args)
         {
             arg->print(dst);
         }
-        dst << " )";
+        dst << ")";
 
         dst << "{" << std::endl;
         if (body != nullptr)
