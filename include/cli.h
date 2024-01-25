@@ -8,7 +8,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+struct CommandLineArguments
+{
+    std::string compileSourcePath;
+    std::string compileOutputPath;
+};
+
 void handler(int sig);
-int parse_command_line_args(int argc, char **argv, std::string &sourcePath, std::string &outputPath);
+CommandLineArguments parse_command_line_args(int argc, char **argv);
 
 #endif
